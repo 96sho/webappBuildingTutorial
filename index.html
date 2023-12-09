@@ -18,6 +18,7 @@
             <input type="text" id="username-field" placeholder="ユーザー名">
             <input type="text" id="comment-field" placeholder="コメント..">
             <span class="material-symbols-outlined" id="send-button" onclick="sendComment();">send</span>
+            <p>props to ChatGPT for the design!</p>
         </div>
     </div>
 </body>
@@ -28,6 +29,7 @@
         --primaryColorLight: rgb(64, 64, 64);
         --primaryColorDark: rgb(30, 30, 30);
         --primaryComplimentary: rgb(233, 233, 233);
+        --primaryComplimentaryDark:rgb(190, 190, 190);
         --accentColor: rgb(89, 205, 50);
         --accentColorLight: rgb(86, 232, 37);
         --accentColorDark: rgb(76, 176, 42);
@@ -92,6 +94,13 @@
         padding: 10px;
         display: flex;
         justify-content: center;
+        text-align: center;
+        font-size: 0.7rem;
+        color: var(--primaryComplimentaryDark);
+    }
+    #comment-field-container p {
+        margin: 0;
+        margin-top: 5px;
     }
     #top{
         border-left: 7px solid var(--accentColor);
