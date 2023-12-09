@@ -5,7 +5,7 @@ const port = 8000;
 const app = express();
 app.use(express.json());
 
-let comments = [{user: "Someone", comment: "ユーザー名とコメントを入力して送信"}]
+let comments = [{user: "Someone", comment: "ユーザー名とコメントを入力して送信"}];
 
 app.get("/", (req, resp) => {
     resp.status(200).send(readFileSync("./index.html", { encoding: "utf-8"}));
