@@ -154,10 +154,10 @@
                 "Content-Type": "application/json",
             }
         })
-        .then((resp) => initializeComments())
+        .then((resp) => loadComments())
     }
 
-    async function initializeComments(){
+    async function loadComments(){
         const comments = await (await fetch("/loadComments")).json();
         console.log(comments);
         commentSection.innerHTML = "";
@@ -166,7 +166,7 @@
         }
     }
 
-    initializeComments();
+    loadComments();
 
 </script>
 </html>
