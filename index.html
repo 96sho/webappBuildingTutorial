@@ -22,6 +22,44 @@
         </div>
     </div>
 </body>
+<script>
+    const usernameField = document.querySelector("#username-field");
+    const commentField = document.querySelector("#comment-field");
+    const commentSection = document.querySelector("#main");
+    commentField.addEventListener("keydown", (event) => {if(event.key == "Enter") sendComment()})
+
+    function sendComment(){
+        const comment = commentField.value;
+        const username = usernameField.value;
+        commentField.value = "";
+        if(comment == "" || username == ""){
+            return;
+        }
+        fetch("/addComment", {
+            method: "POST",
+            body: JSON.stringify({
+                user: username,
+                comment: comment
+            }),
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        .then((resp) => loadComments())
+    }
+
+    async function loadComments(){
+        const comments = await (await fetch("/loadComments")).json();
+        console.log(comments);
+        commentSection.innerHTML = "";
+        for(const comment of comments){
+            commentSection.innerHTML += `<div class="comment"><h3>${comment.user}</h3><p>${comment.comment}</p></div>`;
+        }
+    }
+
+    loadComments();
+
+</script>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&family=Roboto+Mono:wght@400;424&display=swap');
     body{
@@ -131,42 +169,4 @@
     }
 </style>
 
-<script>
-    const usernameField = document.querySelector("#username-field");
-    const commentField = document.querySelector("#comment-field");
-    const commentSection = document.querySelector("#main");
-    commentField.addEventListener("keydown", (event) => {if(event.key == "Enter") sendComment()})
-
-    function sendComment(){
-        const comment = commentField.value;
-        const username = usernameField.value;
-        commentField.value = "";
-        if(comment == "" || username == ""){
-            return;
-        }
-        fetch("/addComment", {
-            method: "POST",
-            body: JSON.stringify({
-                user: username,
-                comment: comment
-            }),
-            headers: {
-                "Content-Type": "application/json",
-            }
-        })
-        .then((resp) => loadComments())
-    }
-
-    async function loadComments(){
-        const comments = await (await fetch("/loadComments")).json();
-        console.log(comments);
-        commentSection.innerHTML = "";
-        for(const comment of comments){
-            commentSection.innerHTML += `<div class="comment"><h3>${comment.user}</h3><p>${comment.comment}</p></div>`;
-        }
-    }
-
-    loadComments();
-
-</script>
 </html>
